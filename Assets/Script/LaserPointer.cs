@@ -25,9 +25,6 @@ public class LaserPointer : MonoBehaviour {
     // 標的
     public GameObject target;
 
-    // 標的の初期位置
-    private Vector3 initPosition;
-
     // 当たり判定
     private bool isResPon = false;
 
@@ -54,8 +51,6 @@ public class LaserPointer : MonoBehaviour {
     {
         // 標的の取得
         target = GameObject.Find(targetID);
-        // 標的の位置の取得
-        initPosition = target.transform.position;
         // X軸移動の向きを初期化
         changedX = 0.0f;
     }
@@ -70,7 +65,32 @@ public class LaserPointer : MonoBehaviour {
             // 再表示
             target.SetActive(true);
             // 初期位置に戻す
-            target.transform.position = initPosition;
+            Common.Launcher numLauncher = Common.getNumRandom();
+
+            switch (numLauncher)
+            {
+                case Common.Launcher.A:
+                    target.transform.position = Common.initLauncherA;
+                    break;
+                case Common.Launcher.B:
+                    target.transform.position = Common.initLauncherB;
+                    break;
+                case Common.Launcher.C:
+                    target.transform.position = Common.initLauncherC;
+                    break;
+                case Common.Launcher.D:
+                    target.transform.position = Common.initLauncherD;
+                    break;
+                case Common.Launcher.E:
+                    target.transform.position = Common.initLauncherE;
+                    break;
+                case Common.Launcher.F:
+                    target.transform.position = Common.initLauncherF;
+                    break;
+                case Common.Launcher.G:
+                    target.transform.position = Common.initLauncherG;
+                    break;
+            }
         }
 
         var pointer = Pointer;
