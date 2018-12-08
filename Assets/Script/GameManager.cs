@@ -30,12 +30,17 @@ public class GameManager : MonoBehaviour {
         if (restTime < 0)
         {
             restTime = 0;
+            textFinish.GetComponent<TextMesh>().text = "Finish!!";
+
         }
 
-        //print(textFinish.);        
+        textTime.GetComponent<TextMesh>().text = restTime.ToString();
+        //textTime.GetComponent<TextMesh>().text = "hoge";
+
+        print(textTime.GetComponent<TextMesh>().text);
 
         //print( restTime ); 
-
+        textScore.GetComponent<TextMesh>().text = score.ToString();
 
         // 
 
@@ -43,8 +48,10 @@ public class GameManager : MonoBehaviour {
 
     public void AddScore ( int addScore )
     {
-        score += addScore; //ポイントを追加する
-        print(score);
+        if (restTime > 0)
+        {
+            score += addScore; //ポイントを追加する
+        }
 
     }
 
