@@ -5,7 +5,7 @@ public class Target : MonoBehaviour
 
     // 標的のX軸速度
     [SerializeField]
-    private float _MoveSpeed = 100.0f;
+    private float _MoveSpeed = 0.0006f;
 
     private int direction;
 
@@ -35,32 +35,50 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //this.transform.position += new Vector3( -1.0f * _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime);
+        // this.transform.position += new Vector3(0.001f, 0, 0);
+
         // 標的の移動するXを決定する
         // 一度当てた場合は乱数
         // 標的を動かす
         switch (direction)
         {
             case 0:
-                // 右方向
-                this.transform.position += (transform.right * _MoveSpeed * Time.deltaTime + transform.up * _MoveSpeed * Time.deltaTime +
-                                                transform.forward * _MoveSpeed * Time.deltaTime);
+                if (isLeft())
+                {
+                    // 右方向
+                    this.transform.position += new Vector3(-1.0f * _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime);
+
+                }
+                else
+                {
+                    //正面
+                    this.transform.position += new Vector3(_MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime);
+                }
                 break;
             case 1:
                 // 正面
-                this.transform.position += (transform.up * _MoveSpeed * Time.deltaTime + transform.forward * _MoveSpeed * Time.deltaTime);
+                this.transform.position += new Vector3(_MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime);
                 break;
             case 2:
-                // 左方向
-                this.transform.position -= (transform.up * _MoveSpeed * Time.deltaTime + transform.forward * _MoveSpeed * Time.deltaTime -
-                                                transform.right * _MoveSpeed * Time.deltaTime);
+                if (isLeft())
+                {
+                    // 正面
+                    this.transform.position += new Vector3(_MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    // 左方向
+                    this.transform.position += new Vector3(-1.0f * _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime);
+                }
                 break;
             default:
-                this.transform.position -= (transform.up * _MoveSpeed * Time.deltaTime + transform.forward * _MoveSpeed * Time.deltaTime);
+                this.transform.position += new Vector3(_MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime, _MoveSpeed * Time.deltaTime);
                 break;
         }
 
         // 一定の距離を通り過ぎた場合
-        if (this.transform.position.z < -15.55f)
+        if (20.0f < this.transform.position.z)
         {
             setInitPosition();
 
@@ -96,6 +114,20 @@ public class Target : MonoBehaviour
             case Common.Launcher.G:
                 this.transform.position = Common.initLauncherG;
                 break;
+        }
+    }
+
+    private bool isLeft()
+    {
+        if(this.transform.position == Common.initLauncherB ||
+            this.transform.position == Common.initLauncherE ||
+            this.transform.position == Common.initLauncherG)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
