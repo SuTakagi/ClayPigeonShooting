@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour {
                 startFlg = true;
                 score = 0;
                 restTime = 60;
+                textFinish.GetComponent<TextMesh>().text = "";
             }
             
         }
