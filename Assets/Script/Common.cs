@@ -42,10 +42,9 @@ public class Common : MonoBehaviour {
     #endregion
 
     #region 関数
-    public static float getRandom()
+    public static int getRnadomSwitch()
     {
-        return UnityEngine.Random.Range(-100.0f, 100.0f);
-
+        return UnityEngine.Random.Range(0, 3);
     }
 
     public static Launcher getNumRandom()

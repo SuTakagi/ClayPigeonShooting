@@ -5,15 +5,11 @@ public class Target : MonoBehaviour
 
     // 標的のX軸速度
     [SerializeField]
-    private float _MoveSpeed_X = 10.0f;
+    private float _MoveSpeed = 100.0f;
 
-    // 標的のY軸速度
-    //[SerializeField]
-    //private float _MoveSpeed_Y = 0.0f;
+    private int direction;
 
-    // 標的のZ軸速度
-    [SerializeField]
-    private float _MoveSpeed_Z = 10.0f;
+    CharacterController controller;
 
     // Use this for initialization
     void Start()
@@ -28,7 +24,9 @@ public class Target : MonoBehaviour
         Common.initLauncherG = new Vector3(-4.0f, 2.0f, 10.0f);
 
         // 速度の取得
-        _MoveSpeed_X = Common.getRandom();
+        direction = Common.getRnadomSwitch();
+
+        controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -36,9 +34,27 @@ public class Target : MonoBehaviour
     {
         // 標的の移動するXを決定する
         // 一度当てた場合は乱数
-        _MoveSpeed_X = LaserPointer.changedX != 0.0f ? LaserPointer.changedX : _MoveSpeed_X;
         // 標的を動かす
-        this.transform.position += new Vector3(_MoveSpeed_X * Time.deltaTime, 0, _MoveSpeed_Z * Time.deltaTime);
+        switch (direction)
+        {
+            case 0:
+                // 右方向
+                this.transform.position += (transform.right * _MoveSpeed * Time.deltaTime + transform.up * _MoveSpeed * Time.deltaTime +
+                                                transform.forward * _MoveSpeed * Time.deltaTime);
+                break;
+            case 1:
+                // 正面
+                this.transform.position += (transform.up * _MoveSpeed * Time.deltaTime + transform.forward * _MoveSpeed * Time.deltaTime);
+                break;
+            case 2:
+                // 左方向
+                this.transform.position += (transform.up * _MoveSpeed * Time.deltaTime + transform.forward * _MoveSpeed * Time.deltaTime -
+                                                transform.right * _MoveSpeed * Time.deltaTime);
+                break;
+            default:
+                this.transform.position += (transform.up * _MoveSpeed * Time.deltaTime + transform.forward * _MoveSpeed * Time.deltaTime);
+                break;
+        }
 
         // 一定の距離を通り過ぎた場合
         if (50 < this.transform.position.z)
@@ -69,9 +85,9 @@ public class Target : MonoBehaviour
                     this.transform.position = Common.initLauncherG;
                     break;
             }
-            
+
             // 標的の移動するXを決定する
-            _MoveSpeed_X = Common.getRandom();
+            direction = Common.getRnadomSwitch();
         }
     }
 }

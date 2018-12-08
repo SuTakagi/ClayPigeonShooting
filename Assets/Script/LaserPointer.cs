@@ -20,7 +20,7 @@ public class LaserPointer : MonoBehaviour {
     private const string targetID = "Cube";
 
     // X軸の移動向き
-    public static float changedX;
+    public static float direction;
 
     // 標的
     public GameObject target;
@@ -52,7 +52,7 @@ public class LaserPointer : MonoBehaviour {
         // 標的の取得
         target = GameObject.Find(targetID);
         // X軸移動の向きを初期化
-        changedX = 0.0f;
+        direction = 0.0f;
     }
 
     void Update()
@@ -112,7 +112,7 @@ public class LaserPointer : MonoBehaviour {
             // 当たった判定
             isResPon = true;
             // 標的の向きを変える
-            changedX = Common.getRandom();
+            direction = Common.getRnadomSwitch();
         }
         else
         {
