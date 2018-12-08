@@ -6,13 +6,18 @@ public class GameManager : MonoBehaviour {
 
     static float restTime = 60;
     static int score;
-    
-    
+
+    public GameObject textStart;
+    public GameObject textFinish;
+    public GameObject textScore;
+    public GameObject textTime;
 
     // Use this for initialization
     void Start () {
 
-        Debug.Log("start");
+        print(textStart.GetComponent<TextMesh>().text);
+
+        //Debug.Log("start");
 	}
 	
 	// Update is called once per frame
@@ -27,9 +32,9 @@ public class GameManager : MonoBehaviour {
             restTime = 0;
         }
 
-        
+        //print(textFinish.);        
 
-        print( restTime ); 
+        //print( restTime ); 
 
 
         // 
