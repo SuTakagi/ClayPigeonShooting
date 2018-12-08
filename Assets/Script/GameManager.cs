@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public void AddScore ( int addScore )
+    public  void AddScore ( int addScore )
     {
         if (restTime > 0)
         {

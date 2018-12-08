@@ -28,6 +28,8 @@ public class LaserPointer : MonoBehaviour {
     // 当たり判定
     private bool isResPon = false;
 
+    public GameObject gameManager;
+
     private Transform Pointer
     {
         get
@@ -113,6 +115,9 @@ public class LaserPointer : MonoBehaviour {
             isResPon = true;
             // 標的の向きを変える
             direction = Common.getRnadomSwitch();
+
+            gameManager.GetComponent<GameManager>().AddScore(30);
+
         }
         else
         {
